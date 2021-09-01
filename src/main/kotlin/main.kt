@@ -23,13 +23,13 @@ private fun endsWordsHours(second: Int): String {
     }
 }
 
-private fun agoToText(secondInt: Int): String {
-   return when {
-        secondInt <= 60 -> return "Был в сети только что"
-        secondInt >= 61 && secondInt <= 3600 -> endsWordsMinutes(secondInt)
-        secondInt >= 60 * 60 + 1 && secondInt <= 24 * 60 * 60 -> endsWordsHours(secondInt)
-        secondInt >= 24 * 60 * 60 + 1 && secondInt <= 2 * 24 * 60 * 60 -> return "Был в сети сегодня"
-        secondInt >= 2 * 24 * 60 * 60 + 1 && secondInt <= 3 * 24 * 60 * 60 -> return "Был в сети вчера"
+fun agoToText(secondInt: Int): String {
+   return when (secondInt) {
+        in 0 .. 60 -> return "Был в сети только что"
+        in 61 .. 3_600  -> endsWordsMinutes(secondInt)
+        in 3601 .. 86_400 -> endsWordsHours(secondInt)
+        in 86_401 .. 172_800 -> return "Был в сети сегодня"
+        in 172_801 .. 259_200 -> return "Был в сети вчера"
         else -> return "Был в сети давно"
    }
 }
